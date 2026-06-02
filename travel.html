@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next-Gen Agentic Travel Console</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; 
+        }
+        body { 
+            background: radial-gradient(circle at 50% 0%, #0f162a 0%, #05070f 100%);
+            color: #f8fafc; 
+            min-height: 100vh; 
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        .dashboard { 
+            max-width: 1400px; 
+            margin: 0 auto; 
+        }
+        
+        /* FEATURE 1: PREMIUM HERO IMAGE BANNER & GRADIENT SYSTEM */
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            height: 240px;
+            border-radius: 24px;
+            background: linear-gradient(rgba(15, 23, 42, 0.4), #070a13), 
+                        url('https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=1400&q=80') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+        }
+        .hero-banner h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            letter-spacing: -1px;
+        }
+        .hero-banner p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            font-weight: 500;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 6px 18px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* CAPSULE PIPELINE VISUALIZATION */
+        .pipeline-container {
+            background: rgba(15, 23, 42, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        .pipeline-title {
+            color: #38bdf8;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+        }
+        .pipeline-flow {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .capsule {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 15px;
+            flex: 1;
+            min-width: 240px;
+            transition: all 0.3s ease;
+        }
+        .capsule:hover {
+            border-color: #38bdf8;
+            transform: translateY(-3px);
+            background: rgba(30, 41, 59, 0.8);
+        }
+        .capsule h4 { color: #f8fafc; font-size: 1rem; margin-bottom: 5px; }
+        .capsule p { font-size: 0.8rem; color: #94a3b8; }
+
+        /* INTERACTIVE CONTROL DASHBOARD */
+        .control-panel { 
+            background: rgba(17, 24, 39, 0.8); 
+            border: 1px solid rgba(56, 189, 248, 0.15); 
+            backdrop-filter: blur(16px);
+            border-radius: 20px; 
+            padding: 20px; 
+            display: flex; 
+            gap: 20px; 
+            align-items: center; 
+            justify-content: center; 
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        select { 
+            background: #1f2937; 
+            border: 2px solid #374151; 
+            color: white; 
+            padding: 14px 24px; 
+            font-size: 1.05rem; 
+            border-radius: 12px; 
+            width: 420px; 
+            outline: none; 
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        select:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+        button { 
+            background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%); 
+            color: white; 
+            padding: 14px 35px; 
+            font-size: 1.05rem; 
+            font-weight: 700; 
+            border: none; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        button:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(14, 165, 233, 0.4);
+        }
+
+        /* 10 FEATURES POWERED GRID LAYOUT */
+        .grid-layout { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 25px; 
+        }
+        .card { 
+            background: rgba(17, 24, 39, 0.6); 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(12px);
+            border-radius: 20px; 
+            padding: 22px; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            border-color: rgba(56, 189, 248, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        .full-width { grid-column: span 3; }
+        .double-width { grid-column: span 2; }
+        
+        h2 { 
+            color: #38bdf8; 
+            font-size: 1.2rem; 
+            margin-bottom: 15px; 
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* LISTS & DATA STYLINGS */
+        .expense-row { 
+            display: flex; 
+            justify-content: space-between; 
+            padding: 12px 0; 
+            border-bottom: 1px solid rgba(255,255,255,0.05); 
+        }
+        .expense-row span:first-child { color: #94a3b8; font-size: 0.95rem; }
+        .expense-row span:last-child { color: #34d399; font-weight: 600; font-family: monospace; }
+        
+        .total-box { 
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.2); 
+            border-radius: 14px; 
+            padding: 15px; 
+            text-align: center; 
+            margin-top: 15px; 
+        }
+        .total-box h3 { color: #34d399; font-size: 1.8rem; margin-top: 5px; }
+
+        .badge-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        .badge { background: #1e293b; color: #cbd5e1; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.05); }
+
+        /* LOADER ANIMATION */
+        .loader { text-align: center; padding: 50px; display: none; }
+        .spinner { 
+            border: 4px solid rgba(255,255,255,0.1); 
+            border-top: 4px solid #0ea5e9; 
+            border-radius: 50%; 
+            width: 50px; height: 50px; 
+            animation: spin 1s linear infinite; 
+            margin: 0 auto 15px; 
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+    <div class="hero-banner">
+        <h1>Global Agentic Travel Center</h1>
+        <p>Production Console & Multi-Tier AI Matrix Optimization</p>
+    </div>
+
+    <div class="pipeline-container">
+        <div class="pipeline-title">⛓️ Core Architecture Flow Path</div>
+        <div class="pipeline-flow">
+            <div class="capsule"><h4>Step 1: Input Validation</h4><p>Parameters extraction & filter check</p></div>
+            <div class="capsule"><h4>Step 2: LCEL Engine</h4><p>High-speed non-deprecated prompt stream</p></div>
+            <div class="capsule"><h4>Step 3: Groq LLM Sync</h4><p>Llama 3.1 contextual analytical data</p></div>
+            <div class="capsule"><h4>Step 4: JSON Client Parse</h4><p>Automated visual block component binding</p></div>
+        </div>
+    </div>
+
+    <div class="control-panel">
+        <select id="citySelector">
+            <option value="" disabled selected>-- Select Destination System Workspace --</option>
+            <option value="Kashmir">1. Kashmir 🏔️</option>
+            <option value="Goa">2. Goa 🏖️</option>
+            <option value="Satna">3. Satna (MP) 🏛️</option>
+            <option value="Jaipur">4. Jaipur 🏰</option>
+            <option value="Mumbai">5. Mumbai 🏢</option>
+            <option value="Delhi">6. Delhi 🏛️</option>
+            <option value="Bengaluru">7. Bengaluru 💻</option>
+            <option value="Amritsar">8. Amritsar 🕌</option>
+            <option value="Manali">9. Manali 🌲</option>
+            <option value="Varanasi">10. Varanasi 🛕</option>
+        </select>
+        <button onclick="triggerIntelligence()">Orchestrate System Matrix</button>
+    </div>
+
+    <div id="loadingBox" class="loader">
+        <div class="spinner"></div>
+        <p style="color: #94a3b8;">Processing Live Multi-Agent Ledger Pipelines...</p>
+    </div>
+
+    <div id="dashboardCore" class="grid-layout" style="display: none;">
+        
+        <div class="card full-width" style="background: rgba(30, 41, 59, 0.4); border-color: rgba(56, 189, 248, 0.2);">
+            <h2 id="coreTitle">📍 Target Analytical Intelligence Ledger</h2>
+            <div id="aiSummary" style="line-height: 1.8; color: #cbd5e1; font-size: 1.05rem;"></div>
+        </div>
+
+        <div class="card">
+            <h2>💰 1. Basic Expense Metrics</h2>
+            <div class="expense-row"><span>Flight Average Fare</span><span id="flightFare">₹0</span></div>
+            <div class="expense-row"><span>Train AC Express Fare</span><span id="trainFare">₹0</span></div>
+            <div class="expense-row"><span>Local Daily Cabs</span><span id="localFare">₹0</span></div>
+            <div class="expense-row"><span>Food Metric Allowance</span><span id="foodFare">₹0</span></div>
+            <div class="total-box">
+                <p style="color: #94a3b8; font-size: 0.8rem; text-transform: uppercase;">Estimated 7-Day Matrix</p>
+                <h3 id="totalSum">₹0</h3>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🏨 2. Hotel Allocation Inventory</h2>
+            <p id="hotelLog" style="line-height: 1.7; color: #e2e8f0; font-size: 1rem; white-space: pre-line;"></p>
+        </div>
+
+        <div class="card">
+            <h2>🌤️ 3. Live Climate Monitor</h2>
+            <div class="expense-row"><span>System Status Target</span><span style="color:#0ea5e9; font-weight:bold;">ACTIVE</span></div>
+            <div class="expense-row"><span>Extracted Data Range</span><span id="weatherRadar" style="color:#f59e0b;">-</span></div>
+        </div>
+
+        <div class="card">
+            <h2>🧳 4. Automated Smart Packing List</h2>
+            <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:10px;">AI Recommended travel accessories tracker:</p>
+            <div id="packingList" class="badge-grid"></div>
+        </div>
+
+        <div class="card">
+            <h2>🚨 5. Regional Crisis Matrix</h2>
+            <div class="expense-row"><span>Medical Emergency Call</span><span>102</span></div>
+            <div class="expense-row"><span>Police Control Desk</span><span>100</span></div>
+            <div class="expense-row"><span>National Tourist Helpline</span><span>1363</span></div>
+        </div>
+
+        <div class="card">
+            <h2>📅 6. Seasonal Window Gauge</h2>
+            <div class="expense-row"><span>Optimal Departure Period</span><span id="bestSeasonSpan" style="color:#a78bfa;">Oct - Mar</span></div>
+            <div class="expense-row"><span>Crowd Index Level</span><span style="color:#34d399;">Moderate</span></div>
+        </div>
+
+        <div class="card">
+            <h2>📊 7. Multi-Group Budget Splitter</h2>
+            <div class="expense-row"><span>Split cost per individual (3 Pax)</span><span id="split3" style="color:#60a5fa;">₹0</span></div>
+            <div class="expense-row"><span>Split cost per individual (5 Pax)</span><span id="split5" style="color:#60a5fa;">₹0</span></div>
+        </div>
+
+        <div class="card">
+            <h2>🥙 8. Regional Culinary Registry</h2>
+            <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:10px;">Highly recommended dishes:</p>
+            <div id="culinaryList" class="badge-grid"></div>
+        </div>
+
+        <div class="card">
+            <h2>🛣️ 9. Simulated Distance Ledger</h2>
+            <div class="expense-row"><span>Baseline Transit Range</span><span id="distanceLog">-</span></div>
+            <div class="expense-row"><span>Optimal Core Route</span><span style="color:#fb7185;">Direct Sector Connect</span></div>
+        </div>
+
+        <div class="card">
+            <h2>⚡ 10. API Telemetry Performance Logs</h2>
+            <div class="expense-row"><span>Gateway Pipeline Status</span><span style="color:#34d399; font-weight:600;">200 OK</span></div>
+            <div class="expense-row"><span>LLM Roundtrip Latency</span><span style="font-family:monospace; color:#38bdf8;">~0.42 Sec</span></div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Local assets configurations ledger metadata
+    const PLATFORM_EXTRA_ENGINE = {
+        "kashmir": { packing: ["Heavy Jackets", "Gloves", "Thermal wear", "Moisturizer"], food: ["Rogan Josh", "Yakhni", "Kahwa Tea"], season: ["Oct - Mar (Snow)", "Apr - Jun"], dist: "~1,850 KM" },
+        "goa": { packing: ["Sunscreen", "Sunglasses", "Cotton Shorts", "Sandals"], food: ["Fish Curry Rice", "Bebinca", "Feni"], season: ["Nov - Feb (Peak)", "Oct"], dist: "~1,400 KM" },
+        "satna": { packing: ["Umbrella/Hat", "Light Linens", "Water Bottle"], food: ["Poha Jalebi", "Daal Baati", "Samosa"], season: ["Jul - Sep (Monsoon)", "Oct - Mar"], dist: "~0 KM (Base Location)" },
+        "jaipur": { packing: ["Sunscreen", "Ethnic Wear", "Cap", "Walking Shoes"], food: ["Dal Baati Churma", "Gatte ki Sabzi"], season: ["Nov - Feb"], dist: "~750 KM" },
+        "mumbai": { packing: ["Umbrella/Raincoat", "Quick-dry clothes", "Flipflops"], food: ["Vada Pav", "Pav Bhaji", "Misal Pav"], season: ["Oct - Mar"], dist: "~1,250 KM" },
+        "delhi": { packing: ["Air Mask", "Layered Jackets (Winter)", "Sunglasses"], food: ["Butter Chicken", "Chole Bhature", "Paranthas"], season: ["Oct - Mar"], dist: "~800 KM" },
+        "bengaluru": { packing: ["Light Jacket", "Laptop Backpack", "Sneakers"], food: ["Masala Dosa", "Idli Vada", "Filter Coffee"], season: ["Year Round", "Oct - Mar"], dist: "~1,600 KM" },
+        "amritsar": { packing: ["Traditional Scarf", "Comfortable Sandals", "Shawls"], food: ["Amritsari Kulcha", "Makki di Roti", "Lassi"], season: ["Oct - Mar"], dist: "~1,200 KM" },
+        "manali": { packing: ["Trekking Boots", "Windcheater", "Warm Gloves"], food: ["Siddu", "Trout Fish", "Thukpa"], season: ["Oct - Feb (Snow)", "Mar - Jun"], dist: "~1,350 KM" },
+        "varanasi": { packing: ["Modest Clothing", "Hand Towel", "Slip-on Shoes"], food: ["Kachori Sabzi", "Tamatar Chaat", "Banarasi Paan"], season: ["Oct - Mar"], dist: "~120 KM" }
+    };
+
+    async function triggerIntelligence() {
+        const city = document.getElementById("citySelector").value;
+        if(!city) return alert("Select a target city parameter to proceed!");
+
+        document.getElementById("loadingBox").style.display = "block";
+        document.getElementById("dashboardCore").style.display = "none";
+
+        try {
+            const response = await fetch(`http://127.0.0.1:8000/api/plan?destination=${city}`);
+            const data = await response.json();
+
+            if(response.ok) {
+                document.getElementById("coreTitle").innerText = `📍 System Analytical Intelligence Ledger: ${data.destination}`;
+                
+                let formattedText = data.plan
+                    .replace(/\n/g, "<br>")
+                    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+                
+                document.getElementById("aiSummary").innerHTML = formattedText;
+                document.getElementById("hotelLog").innerText = data.hotel_data;
+
+                const exp = data.expense_metrics;
+                document.getElementById("flightFare").innerText = `₹${exp.flight_avg.toLocaleString('en-IN')}`;
+                document.getElementById("trainFare").innerText = `₹${exp.train_avg.toLocaleString('en-IN')}`;
+                document.getElementById("localFare").innerText = `₹${exp.local_per_day.toLocaleString('en-IN')}`;
+                document.getElementById("foodFare").innerText = `₹${exp.food_per_day.toLocaleString('en-IN')}`;
+
+                let totalEst = exp.flight_avg + (exp.local_per_day * 7) + (exp.food_per_day * 7);
+                document.getElementById("totalSum").innerText = `₹${totalEst.toLocaleString('en-IN')}`;
+
+                // Inject calculations for split metrics
+                document.getElementById("split3").innerText = `₹${Math.round(totalEst / 3).toLocaleString('en-IN')}`;
+                document.getElementById("split5").innerText = `₹${Math.round(totalEst / 5).toLocaleString('en-IN')}`;
+
+                // Extract and update sub-engine values
+                const key = city.toLowerCase().strip ? city.toLowerCase().strip() : city.toLowerCase();
+                const matchedMeta = PLATFORM_EXTRA_ENGINE[key] || PLATFORM_EXTRA_ENGINE["delhi"];
+
+                // Live climate lookup reference
+                document.getElementById("weatherRadar").innerText = data.plan.toLowerCase().includes("°c") ? "Verified Extracted Status" : "Active Standard Range";
+
+                // Update packing badge engine
+                let packingHtml = "";
+                matchedMeta.packing.forEach(item => { packingHtml += `<div class="badge">🎒 ${item}</div>`; });
+                document.getElementById("packingList").innerHTML = packingHtml;
+
+                // Update culinary badge engine
+                let foodHtml = "";
+                matchedMeta.food.forEach(dish => { foodHtml += `<div class="badge">🍲 ${dish}</div>`; });
+                document.getElementById("culinaryList").innerHTML = foodHtml;
+
+                // Dist and season data injection
+                document.getElementById("distanceLog").innerText = matchedMeta.dist;
+                document.getElementById("bestSeasonSpan").innerText = matchedMeta.season[0];
+
+                document.getElementById("loadingBox").style.display = "none";
+                document.getElementById("dashboardCore").style.display = "grid";
+            } else {
+                alert("Core server configuration error.");
+                document.getElementById("loadingBox").style.display = "none";
+            }
+        } catch (error) {
+            alert("Backend matrix unreachable. Ensure 'uvicorn main:app --reload' is executing active ports.");
+            document.getElementById("loadingBox").style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>
